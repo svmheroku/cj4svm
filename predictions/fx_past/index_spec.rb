@@ -39,5 +39,31 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     `ruby -v`.should include "ruby 1.9.2p246 (2011-05-30 revision 31821) [x86_64-linux]"
   end
 ##
+
+
+  it "Should run the sql script fx_past.sql" do
+    `which sqt`.should == "/pt/s/rl/cj4svm/bin/sqt\n"
+    `/bin/ls -l fx_past.sql`.should == "-rw-r--r-- 1 oracle oinstall 2938 2011-06-05 21:57 fx_past.sql\n"
+    # The script should have an exit so it will not hang:
+    `grep exit fx_past.sql`.should match /^exit\n/
+    time0 = Time.now
+    sql_output = `sqt @fx_past.sql`
+    # The sql script should need at least 3 seconds to finish:
+    (Time.now - time0).should > 2
+    sql_output.should match /^Connected to:\n/
+    sql_output.should match /^Oracle Database 11g Enterprise Edition /
+    sql_output.should match /fx_past.sql/
+    sql_output.should match /^Recyclebin purged/
+    sql_output.should match /^@fx_past_week.sql 2011-05-08/
+    sql_output.should match /^Disconnected from Oracle Database 11g /
+    # I should see 2 recent spool files:
+    (Time.now - File.ctime("/tmp/_fx_past_spool.html.erb")).should < 9
+    (Time.now - File.ctime("/tmp/fx_past_week.txt")).should < 9
+    # Do a small edit:
+    `grep -v 'rows selected' /tmp/_fx_past_spool.html.erb > /tmp/tmp.html`
+    (Time.now - File.ctime("/tmp/tmp.html")).should < 2
+  end
+##
+
 end
 

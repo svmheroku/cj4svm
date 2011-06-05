@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. /pt/s/rl/cj/.cj
+
+sqlplus trade/t $@

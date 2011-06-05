@@ -1,6 +1,7 @@
 # Gemfile
-# After I vi Gemfile,
-# remember to run shell command: bundle install --binstubs
+# Some useful syntax:
+# bundle install --binstubs
+# bundle pack
 
 source 'http://rubygems.org'
 

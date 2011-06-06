@@ -92,7 +92,6 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     fhw = File.open("./us_stk_past/_us_stk_past_spool.html.erb","w")
     fhw.write(html_doc.search("table#table_us_stk_past").to_html)
     fhw.close
-
   end
 ##
 

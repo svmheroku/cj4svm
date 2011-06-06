@@ -30,7 +30,7 @@
 
 require "../../spec_helper.rb"
 
-describe "cj4svm helps me build both erb files and haml files which act as Rails templates" do
+describe "cj4svm helps me build both erb files which act as Rails templates" do
 
   it "rvm should give me the correct version of Ruby." do
     `which rvm`.should == "/home/oracle/bin/rvm\n"

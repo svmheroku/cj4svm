@@ -47,6 +47,7 @@ AND score_diff < -0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g1 > -0.0004
+AND price_6hr > 0
 GROUP BY pair
 HAVING(STDDEV(g5) > 0)
 ORDER BY pair
@@ -82,6 +83,7 @@ AND score_diff > 0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g1 < 0.0004
+AND price_6hr > 0
 GROUP BY pair
 HAVING(STDDEV(g5) > 0)
 ORDER BY pair
@@ -125,6 +127,7 @@ AND score_diff < -0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g1 > -0.0004
+AND price_6hr > 0
 ORDER BY pair,ydate
 /
 
@@ -145,6 +148,7 @@ AND score_diff > 0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g1 < 0.0004
+AND price_6hr > 0
 ORDER BY pair,ydate
 /
 

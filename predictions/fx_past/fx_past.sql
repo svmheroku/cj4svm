@@ -70,10 +70,18 @@ TO_CHAR(ydate,'WW')
 ,MAX(ydate)
 ,TO_CHAR(MAX(ydate),'Dy')maxday
 FROM fxpst12
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_6hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
+/
+
+-- rpt
+SELECT
+pair,COUNT(pair)
+FROM fxpst12
+WHERE price_6hr IS NULL
+GROUP BY pair
+ORDER BY pair
 /
 
 -- This SELECT gives me text for a-tags
@@ -85,10 +93,9 @@ SPOOL /tmp/_fx_past_spool.html.erb
 SELECT
 'Week: '||MIN(ydate)||' Through '||MAX(ydate) wweek
 FROM fxpst12
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_6hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
 /
 SPOOL OFF
 SET MARKUP HTML OFF
@@ -100,10 +107,9 @@ SPOOL /tmp/fx_past_week.txt
 SELECT
 '@fx_past_week.sql '||MIN(ydate) cmd
 FROM fxpst12
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_6hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
 /
 SPOOL OFF
 

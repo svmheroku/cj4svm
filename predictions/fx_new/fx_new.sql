@@ -37,7 +37,7 @@ pair
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND ABS(score_diff) > 0.55
-AND ydate > (SELECT MAX(ydate)-1 FROM fxpst12)
+AND price_6hr IS NULL
 ORDER BY SIGN(score_diff),pair,ydate
 /
 

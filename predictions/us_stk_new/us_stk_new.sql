@@ -29,6 +29,7 @@ SELECT
 FROM us_stk_pst13
 WHERE rnng_crr1 > 0
 AND ABS(score_diff) > 0.55
+AND price_24hr IS NULL
 AND ydate > (SELECT MAX(ydate)FROM us_stk_pst13) - 6/24
 ORDER BY SIGN(score_diff),tkr,ydate
 /

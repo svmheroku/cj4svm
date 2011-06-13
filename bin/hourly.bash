@@ -26,7 +26,7 @@ set -x
 
 cd /pt/s/rl/svm/
 git add .
-git commit -a -v -m every10min.bash-commit
+git commit -a -v -m hourly.bash-commit
 git push origin master
 git push heroku master
 

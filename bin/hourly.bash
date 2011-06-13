@@ -33,7 +33,8 @@ git push heroku master
 # Now, pull the new data into the Varnish-cache at the server:
 cd /tmp/
 
-rm -f predictions fx us_stk fx_past fx_past us_stk_past us_stk_past
+rm -f predictions fx us_stk fx_past fx_new us_stk_past us_stk_new
+rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.?
 
 wget http://svm.heroku.com/predictions
 

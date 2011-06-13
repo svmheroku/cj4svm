@@ -64,10 +64,9 @@ TO_CHAR(ydate,'WW')
 ,MAX(ydate)
 ,TO_CHAR(MAX(ydate),'Dy')maxday
 FROM us_stk_pst13
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_24hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
 /
 
 -- This SELECT gives me text for a-tags
@@ -79,10 +78,9 @@ SPOOL /tmp/_us_stk_past_spool.html.erb
 SELECT
 'Week: '||MIN(ydate)||' Through '||MAX(ydate) wweek
 FROM us_stk_pst13
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_24hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
 /
 
 SPOOL OFF
@@ -95,10 +93,9 @@ SPOOL /tmp/us_stk_past_week.txt
 SELECT
 '@us_stk_past_week.sql '||MIN(ydate) cmd
 FROM us_stk_pst13
-GROUP BY 
-TO_CHAR(ydate,'WW')
-ORDER BY 
-MIN(ydate)
+WHERE price_24hr > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
 /
 SPOOL OFF
 

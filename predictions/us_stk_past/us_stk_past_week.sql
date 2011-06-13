@@ -46,6 +46,8 @@ AND score_diff < -0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g24hr != 0
+-- redundant but selective:
+AND price_24hr > 0
 GROUP BY tkr
 ORDER BY tkr
 /
@@ -80,6 +82,8 @@ AND score_diff > 0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g24hr != 0
+-- redundant but selective:
+AND price_24hr > 0
 GROUP BY tkr
 ORDER BY tkr
 /
@@ -117,6 +121,8 @@ AND ABS(score_diff) > 0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g24hr != 0
+-- redundant but selective:
+AND price_24hr > 0
 ORDER BY SIGN(score_diff),tkr,ydate
 /
 

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# every10min.bash
+# hourly.bash
 
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 
 # Start with stocks, Copy data out of the DB into some partials:
-cd /pt/s/rl/cj4svm/predictions/us_stk_new/
+cd /pt/s/rl/cj4svm/predictions/us_stk_past/
 ./index_spec.bash
 
 # Now for Forex,
@@ -17,7 +17,7 @@ rsync z:dpdump/fx.dpdmp ~/dpdump/
 impdp trade/t table_exists_action=replace dumpfile=fx.dpdmp
 
 # Copy data out of the DB into some partials:
-cd /pt/s/rl/cj4svm/predictions/fx_new/
+cd /pt/s/rl/cj4svm/predictions/fx_past/
 ./index_spec.bash
 
 # Now copy the new data to the Rails site:
@@ -33,10 +33,12 @@ git push heroku master
 # Now, pull the new data into the Varnish-cache at the server:
 cd /tmp/
 
-rm -f fx us_stk fx_new fx_past us_stk_new us_stk_past
+rm -f predictions fx us_stk fx_past fx_past us_stk_past us_stk_past
 
-http://svm.heroku.com/predictions/fx
-http://svm.heroku.com/predictions/us_stk
+wget http://svm.heroku.com/predictions
+
+wget http://svm.heroku.com/predictions/fx
+wget http://svm.heroku.com/predictions/us_stk
 
 wget http://svm.heroku.com/fx_new
 wget http://svm.heroku.com/fx_past

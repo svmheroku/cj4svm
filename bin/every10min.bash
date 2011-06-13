@@ -7,6 +7,8 @@
 
 # Use expdp to copy data from active-fx-db into local-db:
 ssh z /pt/s/rl/cj4svm/bin/expdp_fx.bash
+exit
+
 rsync z:dpdmp/fx.dpdmp ~/dpdmp/
 impdp trade/t table_exists_action=replace dumpfile=fx.dpdmp
 

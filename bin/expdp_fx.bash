@@ -6,5 +6,5 @@
 
 . /pt/s/rl/cj4svm/.cj
 
-mv fx.dpdmp /tmp/
+mv ~/dpdump/fx.dpdmp /tmp/
 expdp trade/t dumpfile=fx.dpdmp tables=di5min,svm62scores

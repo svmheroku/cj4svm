@@ -33,14 +33,14 @@ SPOOL /tmp/tmp_fx_past_week_&1
 SELECT
 pair
 ,ROUND(AVG(score_diff),2) avg_danbot_score
-,ROUND(AVG(g5) / STDDEV(g5),2) sharpe_ratio
-,ROUND(AVG(g1),4)   avg_1hr_n_gain
-,ROUND(AVG(g5),4)   avg_5hr_n_gain
-,COUNT(g5)          position_count
-,ROUND(SUM(g5),4)   sum_5hr_n_gain
-,ROUND(MIN(g5),4)   min_5hr_n_gain
-,ROUND(MAX(g5),4)   max_5hr_n_gain
-,ROUND(STDDEV(g5),4)stddev_5hr_n_gain
+,ROUND(AVG(g5n) / STDDEV(g5n),2) sharpe_ratio
+,ROUND(AVG(g1n),4)   avg_1hr_n_gain
+,ROUND(AVG(g5n),4)   avg_5hr_n_gain
+,COUNT(g5n)          position_count
+,ROUND(SUM(g5n),4)   sum_5hr_n_gain
+,ROUND(MIN(g5n),4)   min_5hr_n_gain
+,ROUND(MAX(g5n),4)   max_5hr_n_gain
+,ROUND(STDDEV(g5n),4)stddev_5hr_n_gain
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND score_diff < -0.55
@@ -49,7 +49,7 @@ AND ydate - 7 < '&1'
 AND g1 > -0.0004
 AND price_6hr > 0
 GROUP BY pair
-HAVING(STDDEV(g5) > 0)
+HAVING(STDDEV(g5n) > 0)
 ORDER BY pair
 /
 
@@ -69,14 +69,14 @@ ORDER BY anote DESC
 SELECT
 pair
 ,ROUND(AVG(score_diff),2) avg_danbot_score
-,ROUND(AVG(g5) / STDDEV(g5),2) sharpe_ratio
-,ROUND(AVG(g1),4)   avg_1hr_n_gain
-,ROUND(AVG(g5),4)   avg_5hr_n_gain
-,COUNT(g5)          position_count
-,ROUND(SUM(g5),4)   sum_5hr_n_gain
-,ROUND(MIN(g5),4)   min_5hr_n_gain
-,ROUND(MAX(g5),4)   max_5hr_n_gain
-,ROUND(STDDEV(g5),4)stddev_5hr_n_gain
+,ROUND(AVG(g5n) / STDDEV(g5n),2) sharpe_ratio
+,ROUND(AVG(g1n),4)   avg_1hr_n_gain
+,ROUND(AVG(g5n),4)   avg_5hr_n_gain
+,COUNT(g5n)          position_count
+,ROUND(SUM(g5n),4)   sum_5hr_n_gain
+,ROUND(MIN(g5n),4)   min_5hr_n_gain
+,ROUND(MAX(g5n),4)   max_5hr_n_gain
+,ROUND(STDDEV(g5n),4)stddev_5hr_n_gain
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND score_diff > 0.55
@@ -85,7 +85,7 @@ AND ydate - 7 < '&1'
 AND g1 < 0.0004
 AND price_6hr > 0
 GROUP BY pair
-HAVING(STDDEV(g5) > 0)
+HAVING(STDDEV(g5n) > 0)
 ORDER BY pair
 /
 
@@ -119,8 +119,8 @@ pair
 ,ROUND(price_6hr,4)  price_6hr
 ,ROUND(g1,4)         gain_1hr0hr
 ,ROUND(g5,4)         gain_6hr1hr
-,ROUND(g1/price_0hr,4)normalized_gain_1hr
-,ROUND(g5/price_0hr,4)normalized_gain_5hr
+,ROUND(g1n,4)normalized_gain_1hr
+,ROUND(g5n,4)normalized_gain_5hr
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND score_diff < -0.55
@@ -140,8 +140,8 @@ pair
 ,ROUND(price_6hr,4)  price_6hr
 ,ROUND(g1,4)         gain_1hr0hr
 ,ROUND(g5,4)         gain_6hr1hr
-,ROUND(g1/price_0hr,4)normalized_gain_1hr
-,ROUND(g5/price_0hr,4)normalized_gain_5hr
+,ROUND(g1n,4)normalized_gain_1hr
+,ROUND(g5n,4)normalized_gain_5hr
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND score_diff > 0.55

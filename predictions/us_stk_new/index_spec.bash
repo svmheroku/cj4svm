@@ -7,6 +7,7 @@
 . /pt/s/rl/cj4svm/.cj
 
 # cd to the right place
+echo 'cd $CJ4SVM/predictions/us_stk_new/'
 cd $CJ4SVM/predictions/us_stk_new/
 echo now at:
 pwd
@@ -15,12 +16,11 @@ pwd
 # us_stk_pst17
 # stkscores17
 
+echo 'ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_new/expdp_new.bash'
 ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_new/expdp_new.bash
 
-# debug
-exit
-# debug
-rsync sourcehost:dpdump/us_stk_new.dpdmp ~/dpdump/
+rsync -vz sourcehost:dpdump/us_stk_new.dpdmp ~/dpdump/
+echo 'impdp trade/t table_exists_action=append dumpfile=us_stk_new.dpdmp'
 impdp trade/t table_exists_action=append dumpfile=us_stk_new.dpdmp
 
 # The new data will be merged later by:
@@ -29,4 +29,7 @@ impdp trade/t table_exists_action=append dumpfile=us_stk_new.dpdmp
 # debug
 exit
 # debug
+echo 'bundle exec rspec index_spec.rb'
 bundle exec rspec index_spec.rb
+
+exit 0

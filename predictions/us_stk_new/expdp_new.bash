@@ -30,9 +30,4 @@ mv ~/dpdump/us_stk_new.dpdmp /tmp/
 # do it:
 expdp trade/t dumpfile=us_stk_new.dpdmp tables=us_stk_pst17,stkscores17
 
-sqt>/tmp/qry_us_stk_pst17.txt<<EOF
-@qry_us_stk_pst17.sql
-EOF
-cat /tmp/qry_us_stk_pst17.txt
-
 exit 0

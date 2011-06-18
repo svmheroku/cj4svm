@@ -46,4 +46,46 @@ WHERE ydate > sysdate - 7
 ORDER BY tkrdate,targ
 /
 
+SELECT
+tkr
+,MIN(ydate)
+,COUNT(tkr)
+,MAX(ydate)
+FROM us_stk_pst17
+GROUP BY tkr
+ORDER BY MAX(ydate),tkr
+/
+
+SELECT
+tkr
+,targ
+,MIN(ydate)
+,COUNT(tkr)
+,MAX(ydate)
+FROM stkscores17
+GROUP BY tkr,targ
+ORDER BY targ,MAX(ydate),tkr
+/
+
+SELECT
+TRUNC(ydate)
+,MIN(ydate)
+,COUNT(tkr)
+,MAX(ydate)
+FROM us_stk_pst17
+GROUP BY TRUNC(ydate)
+ORDER BY MAX(ydate),TRUNC(ydate)
+/
+
+SELECT
+TRUNC(ydate)
+,targ
+,MIN(ydate)
+,COUNT(tkr)
+,MAX(ydate)
+FROM stkscores17
+GROUP BY TRUNC(ydate),targ
+ORDER BY targ,MAX(ydate),TRUNC(ydate)
+/
+
 EXIT

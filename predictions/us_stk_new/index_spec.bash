@@ -25,10 +25,8 @@ impdp trade/t table_exists_action=append dumpfile=us_stk_new.dpdmp
 
 # The new data will be merged later by:
 # us_stk_pst13.sql
+# which is called by index_spec.rb.
 
-# debug
-exit
-# debug
 echo 'bundle exec rspec index_spec.rb'
 bundle exec rspec index_spec.rb
 

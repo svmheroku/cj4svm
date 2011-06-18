@@ -5,7 +5,8 @@
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 
-# Start with stocks, Copy data out of the DB into some partials:
+# Start with stocks, Copy data from remote DBs to local DB.
+# Then, copy data out of local DB into some partials:
 cd /pt/s/rl/cj4svm/predictions/us_stk_new/
 ./index_spec.bash
 

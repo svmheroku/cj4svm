@@ -13,6 +13,7 @@
 . /pt/s/rl/cj4svm/.cj
 
 # cd to the right place
+echo 'cd $CJ4SVM/predictions/us_stk_new/'
 cd $CJ4SVM/predictions/us_stk_new/
 echo now at:
 pwd
@@ -21,11 +22,12 @@ pwd
 # I use expdp_us_stk_new_prep.sql for 2 purposes:
 # 1. To prep data for expdp
 # 2. To create tables at the destination DB for use by us_stk_pst13.sql
+echo Calling:
+echo 'sqlplus @expdp_us_stk_new_prep.sql'
 sqt>/tmp/expdp_us_stk_new_prep.txt<<EOF
 @expdp_us_stk_new_prep.sql
 EOF
 
-set -x
 # sqlplus work ok?:
 cat /tmp/expdp_us_stk_new_prep.txt
 
@@ -34,6 +36,7 @@ touch ~/dpdump/us_stk_new.dpdmp
 mv ~/dpdump/us_stk_new.dpdmp /tmp/
 
 # do it:
+echo 'expdp trade/t dumpfile=us_stk_new.dpdmp tables=us_stk_pst17,stkscores17'
 expdp trade/t dumpfile=us_stk_new.dpdmp tables=us_stk_pst17,stkscores17
 
 exit 0

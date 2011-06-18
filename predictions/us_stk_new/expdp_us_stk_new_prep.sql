@@ -6,6 +6,7 @@
 -- I intend for the data to be merged with data from other DBs.
 -- After the merge, I will then use the data when I publish /predictions/us_stk_new/
 -- Also note that the data prepared here is destined for use by us_stk_pst13.sql
+-- which is the script which does the data-merge.
 
 DROP TABLE us_stk_pst17;
 
@@ -39,6 +40,7 @@ tkr
 ,ydate
 ,tkrdate
 ,targ
+,score
 FROM stkscores
 WHERE ydate > sysdate - 7
 ORDER BY tkrdate,targ

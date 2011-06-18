@@ -2,9 +2,35 @@
 -- us_stk_pst13.sql
 --
 
+-- us_stk_pst17 is created by expdp_us_stk_new_prep.sql
+-- Also it is passed between DBs via expdp/impdp.
+-- I intend for us_stk_pst17 to be loaded up with data from several DBs.
+-- Some of that data will contain duplicates.
+-- I intend to filter out the dups using a GROUP-BY-query.
+
+DROP TABLE us_stk_pst19;
+
+PURGE RECYCLEBIN;
+
+CREATE TABLE us_stk_pst19 COMPRESS AS
+SELECT
+tkrdate
+,MAX(tkr) tkr
+,MAX(ydate) ydate
+,MAX(selldate) selldate
+,AVG(price_0hr) price_0hr
+,AVG(price_24hr) price_24hr
+,AVG(g24hr) g24hr
+,AVG(price_1hr) price_1hr
+,AVG(g1hr) g1hr
+FROM us_stk_pst17
+GROUP BY tkrdate
+/
 
 DROP TABLE us_stk_pst11;
+
 PURGE RECYCLEBIN;
+
 CREATE TABLE us_stk_pst11 COMPRESS AS
 SELECT
 tkr
@@ -16,8 +42,7 @@ tkr
 ,selldate
 ,price_1hr
 ,g1hr
--- us_stk_pst17 is created by expdp_us_stk_new_prep.sql
-FROM us_stk_pst17
+FROM us_stk_pst19
 ORDER BY tkrdate
 /
 

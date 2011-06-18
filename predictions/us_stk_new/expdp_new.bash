@@ -3,6 +3,12 @@
 # expdp_new.bash
 
 # I use this script to expdp new stock data out of the db.
+# My intention is to then impdp-append the new data 
+# into a target db after I rsync the dpdmp file to the target host.
+
+# Usage: ssh sourcehost /pt/s/rl/cj4svm/predictions/us_stk_new/expdp_new.bash
+#        rsync sourcehost:dpdump/us_stk_new.dpdmp ~/dpdump/
+#        impdp trade/t table_exists_action=append dumpfile=us_stk_new.dpdmp
 
 . /pt/s/rl/cj4svm/.cj
 

@@ -25,6 +25,14 @@ cat /tmp/expdp_us_stk_past_prep.txt
 echo 'ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash'
 ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash
 
+rsync -vz z3:dpdump/us_stk_past.dpdmp ~/dpdump/
+echo 'impdp trade/t table_exists_action=append dumpfile=us_stk_past.dpdmp'
+impdp trade/t table_exists_action=append dumpfile=us_stk_past.dpdmp
+
+# The new data will be merged later by:
+# us_stk_past.sql
+# which is called by index_spec.rb.
+
 exit
 
 bundle exec rspec index_spec.rb

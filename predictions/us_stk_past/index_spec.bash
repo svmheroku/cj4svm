@@ -19,6 +19,12 @@ sqt>/tmp/expdp_us_stk_past_prep.txt<<EOF
 @expdp_us_stk_past_prep.sql
 EOF
 
+cat /tmp/expdp_us_stk_past_prep.txt
+
+# Next, I append data to the 2 tables:
+echo 'ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash'
+ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash
+
 exit
 
 bundle exec rspec index_spec.rb

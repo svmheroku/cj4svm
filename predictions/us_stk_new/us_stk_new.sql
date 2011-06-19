@@ -24,7 +24,12 @@ SELECT
 ,ROUND(score_diff,2) danbot_score
 ,CASE WHEN score_diff<0 THEN'Sell'ELSE'Buy'END score_type
 ,ROUND(g1hr,2)       gain_at_hr1            
-,ydate+1 gmt_time_at_hr24
+-- ,ydate+1 gmt_time_at_hr24
+,CASE WHEN TO_CHAR(ydate,'Dy')='Fri'THEN
+ TO_CHAR(ydate+3,'Dy: YYYY-MM-DD HH24:MI')
+ ELSE 
+ TO_CHAR(ydate+1,'Dy: YYYY-MM-DD HH24:MI')
+ END gmt_time_at_hr24
 -- ,ROUND(g24hr,2)      gain_at_hr24           
 FROM us_stk_pst13
 WHERE rnng_crr1 > 0

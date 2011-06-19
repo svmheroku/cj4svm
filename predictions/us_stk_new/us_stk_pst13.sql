@@ -55,6 +55,22 @@ ANALYZE TABLE us_stk_pst11 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
 -- Now join us_stk_pst11 with stkscores17.
 -- stkscores17 is created by expdp_us_stk_new_prep.sql
 
+DROP TABLE stkscores19;
+
+PURGE RECYCLEBIN;
+
+CREATE TABLE stkscores19 COMPRESS AS
+SELECT
+targ
+,tkrdate
+,MAX(tkr)   tkr
+,MAX(ydate) ydate
+,AVG(score) score
+FROM stkscores17
+GROUP BY targ,tkrdate
+ORDER BY targ,tkrdate
+/
+
 DROP TABLE us_stk_pst13;
 CREATE TABLE us_stk_pst13 COMPRESS AS
 SELECT
@@ -70,7 +86,7 @@ m.tkr
 ,m.price_1hr
 ,m.price_24hr
 ,COVAR_POP(l.score-s.score,m.g24hr)OVER(PARTITION BY l.tkr ORDER BY l.ydate ROWS BETWEEN 12*24*5 PRECEDING AND CURRENT ROW)rnng_crr1
-FROM stkscores17 l,stkscores17 s,us_stk_pst11 m
+FROM stkscores19 l,stkscores19 s,us_stk_pst11 m
 WHERE l.targ='gatt'
 AND   s.targ='gattn'
 AND l.tkrdate = s.tkrdate

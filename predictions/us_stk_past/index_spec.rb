@@ -42,13 +42,13 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
 
   it "Should run the sql script us_stk_past.sql" do
     `which sqt`.should == "/pt/s/rl/cj4svm/bin/sqt\n"
-    `/bin/ls -l us_stk_past.sql`.should == "-rw-r--r-- 1 oracle oinstall 2400 2011-06-13 05:15 us_stk_past.sql\n"
+    `/bin/ls -l us_stk_past.sql`.should == "-rw-r--r-- 1 oracle oinstall 3314 2011-06-19 07:23 us_stk_past.sql\n"
     # The script should have an exit so it will not hang:
     `grep exit us_stk_past.sql`.should match /^exit\n/
     time0 = Time.now
     sql_output = `sqt @us_stk_past.sql`
     # The sql script should need at least 3 seconds to finish:
-    # (Time.now - time0).should > 2
+    (Time.now - time0).should > 3
     sql_output.should_not match /^ERROR/
     sql_output.should match /^Connected to:\n/
     sql_output.should match /^Oracle Database 11g Enterprise Edition /

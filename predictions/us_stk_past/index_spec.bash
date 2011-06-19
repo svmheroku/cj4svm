@@ -27,6 +27,6 @@ impdp trade/t table_exists_action=replace dumpfile=us_stk_past.dpdmp tables=us_s
 # us_stk_past.sql
 # which is called by index_spec.rb.
 
-exit
-
 bundle exec rspec index_spec.rb
+
+exit 0

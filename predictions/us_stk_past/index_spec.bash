@@ -19,4 +19,6 @@ sqt>/tmp/expdp_us_stk_past_prep.txt<<EOF
 @expdp_us_stk_past_prep.sql
 EOF
 
+exit
+
 bundle exec rspec index_spec.rb

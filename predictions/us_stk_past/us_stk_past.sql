@@ -2,6 +2,12 @@
 -- us_stk_past.sql
 --
 
+-- This script creates tables used by:
+-- us_stk_past_week.sql
+-- which is called by:
+-- /tmp/run_us_stk_past_week.sql
+-- which is both created and called by us_stk_past/index_spec.rb
+
 DROP TABLE us_stk_pst11;
 PURGE RECYCLEBIN;
 CREATE TABLE us_stk_pst11 COMPRESS AS

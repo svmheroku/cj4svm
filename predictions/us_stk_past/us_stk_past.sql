@@ -8,6 +8,39 @@
 -- /tmp/run_us_stk_past_week.sql
 -- which is both created and called by us_stk_past/index_spec.rb
 
+-- Assume that stkscores21 table exists due to an earlier import of data from other DBs:
+INSERT INTO stkscores21
+(
+tkr
+,ydate
+,tkrdate
+,targ
+,score
+)
+SELECT
+tkr
+,ydate
+,tkrdate
+,targ
+,score
+FROM stkscores
+ORDER BY targ,tkrdate
+/
+
+-- Now merge scores into stkscores23:
+DROP TABLE stkscores23;
+CREATE TABLE stkscores23 COMPRESS AS
+SELECT
+tkrdate
+,targ
+,MAX(tkr)tkr
+,MAX(ydate)ydate
+,AVG(score)score
+FROM stkscores21
+GROUP BY targ,tkrdate
+ORDER BY targ,tkrdate
+/
+
 -- Assume that us_stk_pst21 table exists due to an earlier import of data from other DBs:
 INSERT INTO us_stk_pst21
 (
@@ -36,8 +69,6 @@ WHERE clse > 0
 ORDER BY tkr,ydate
 /
 
-exit
-
 -- Now filter duplicates out of us_stk_pst21 into us_stk_pst11
 
 DROP TABLE us_stk_pst11;
@@ -59,39 +90,6 @@ ORDER BY tkrdate
 
 ANALYZE TABLE us_stk_pst11 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
 
--- Assume that stkscores21 table exists due to an earlier import of data from other DBs:
-INSERT INTO stkscores21
-(
-tkr
-,ydate
-,tkrdate
-,targ
-,score
-)
-SELECT
-tkr
-,ydate
-,tkrdate
-,targ
-,score
-FROM stkscores
-ORDER BY tkrdate,targ
-/
-
--- Now merge scores into stkscores23:
-DROP TABLE stkscores23;
-CREATE TABLE stkscores23 COMPRESS AS
-SELECT
-tkrdate
-,targ
-,MAX(tkr)tkr
-,MAX(ydate)ydate
-,AVG(score)score
-FROM stkscores21
-GROUP BY targ,tkrdate
-ORDER BY targ,tkrdate
-/
-
 -- Now join us_stk_pst11 with stkscores23
 
 DROP TABLE us_stk_pst13;
@@ -109,16 +107,12 @@ m.tkr
 ,m.price_0hr
 ,m.price_1hr
 ,m.price_24hr
--- ,CORR(l.score-s.score,m.g24hr)OVER(PARTITION BY l.tkr ORDER BY l.ydate ROWS BETWEEN 12*24*5 PRECEDING AND CURRENT ROW)rnng_crr1
 ,COVAR_POP(l.score-s.score,m.g24hr)OVER(PARTITION BY l.tkr ORDER BY l.ydate ROWS BETWEEN 12*24*5 PRECEDING AND CURRENT ROW)rnng_crr1
 FROM stkscores23 l,stkscores23 s,us_stk_pst11 m
 WHERE l.targ='gatt'
 AND   s.targ='gattn'
 AND l.tkrdate = s.tkrdate
 AND l.tkrdate = m.tkrdate
--- Speed things up:
-AND l.ydate > '2011-01-30'
-AND s.ydate > '2011-01-30'
 /
 
 ANALYZE TABLE us_stk_pst13 ESTIMATE STATISTICS SAMPLE 9 PERCENT;

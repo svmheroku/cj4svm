@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# every10min.bash
+# every10min_us_stk.bash
 
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
@@ -8,17 +8,6 @@
 # Start with stocks, Copy data from remote DBs to local DB.
 # Then, copy data out of local DB into some partials:
 cd /pt/s/rl/cj4svm/predictions/us_stk_new/
-./index_spec.bash
-
-# Now for Forex,
-# use expdp to copy data from active-fx-db into local-db:
-ssh z /pt/s/rl/cj4svm/bin/expdp_fx.bash
-
-rsync z:dpdump/fx.dpdmp ~/dpdump/
-impdp trade/t table_exists_action=replace dumpfile=fx.dpdmp
-
-# Copy data out of the DB into some partials:
-cd /pt/s/rl/cj4svm/predictions/fx_new/
 ./index_spec.bash
 
 # Now copy the new data to the Rails site:
@@ -37,15 +26,15 @@ cd /tmp/
 rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past
 rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.?
 
-wget http://svm.heroku.com/predictions
+wget http://roboluck.com/predictions
 
-wget http://svm.heroku.com/predictions/fx
-wget http://svm.heroku.com/predictions/us_stk
+wget http://roboluck.com/predictions/fx
+wget http://roboluck.com/predictions/us_stk
 
-wget http://svm.heroku.com/fx_new
-wget http://svm.heroku.com/fx_past
+wget http://roboluck.com/fx_new
+wget http://roboluck.com/fx_past
 
-wget http://svm.heroku.com/us_stk_new
-wget http://svm.heroku.com/us_stk_past
+wget http://roboluck.com/us_stk_new
+wget http://roboluck.com/us_stk_past
 
 exit 0

@@ -1,5 +1,21 @@
 rspec_bash_demo.txt
 
+Peter,
+
+Here is an example of a simple shell script:
+
+https://github.com/svmheroku/cj4svm/blob/522655301f4a7be854c53a45baa28d432bd8cc86/bin/rspec_bash_demo.bash
+
+Here is an example of an rspec script which does the same thing:
+
+https://github.com/svmheroku/cj4svm/blob/522655301f4a7be854c53a45baa28d432bd8cc86/bin/rspec_bash_demo.rb
+
+You will find more examples of me using rspec to run shell commands here:
+
+https://github.com/svmheroku/cj4svm/blob/522655301f4a7be854c53a45baa28d432bd8cc86/predictions/fx_new/index_spec.rb
+
+--Dan
+
 This text file compares rspec_bash_demo.bash to rspec_bash_demo.rb
 
 When I run rspec_bash_demo.bash I should see this:

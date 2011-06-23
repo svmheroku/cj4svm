@@ -1,0 +1,42 @@
+rspec_bash_demo.txt
+
+This text file compares rspec_bash_demo.bash to rspec_bash_demo.rb
+
+When I run rspec_bash_demo.bash I should see this:
+
+
+oracle@z2:/pt/s/rl/cj/bin$ ./rspec_bash_demo.bash 
+./rspec_bash_demo.bash: line 6: /bloom.txt: Permission denied
+oracle@z2:/pt/s/rl/cj/bin$ 
+
+
+
+
+
+When I run rspec_bash_demo.rb I should see this:
+
+
+oracle@z2:/pt/s/rl/cj/bin$ bundle exec rspec -e succeed ./rspec_bash_demo.rb
+Run filtered including {:full_description=>/(?-mix:succeed)/}
+.
+
+Finished in 0.00357 seconds
+1 example, 0 failures
+oracle@z2:/pt/s/rl/cj/bin$ 
+
+
+oracle@z2:/pt/s/rl/cj/bin$ bundle exec rspec -e fail ./rspec_bash_demo.rb
+Run filtered including {:full_description=>/(?-mix:fail)/}
+sh: cannot create /bloom.txt: Permission denied
+F
+
+Failures:
+
+  1) rspec_bash_demo.rb should fail unless I am root
+     Failure/Error: dir_glob.should == ["/bloom.txt"]
+       expected: ["/bloom.txt"]
+            got: [] (using ==)
+       Diff:
+       @@ -1,2 +1,2 @@
+       -["/bloom.txt"]
+       +[]

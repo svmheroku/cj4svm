@@ -6,6 +6,7 @@
 
 cd /tmp/
 
+rm -f index.html
 rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past
 rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.?
 

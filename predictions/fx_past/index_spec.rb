@@ -43,7 +43,10 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
 
   it "Should run the sql script fx_past.sql" do
     `which sqt`.should == "/pt/s/rl/cj4svm/bin/sqt\n"
-    `/bin/ls -l fx_past.sql`.should == "-rw-r--r-- 1 oracle oinstall 3266 2011-06-13 06:05 fx_past.sql\n"
+    fx_past_sql = "/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"
+    dglb = Dir.glob(fx_past_sql)
+    dglb.should == ["/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"]
+    File.size(fx_past_sql).should == 3266
     # The script should have an exit so it will not hang:
     `grep exit fx_past.sql`.should match /^exit\n/
     time0 = Time.now

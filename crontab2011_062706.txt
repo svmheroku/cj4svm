@@ -1,2 +1,4 @@
 # /pt/s/rl/cj4svm/crontab2011_062706.txt
-25 * * * * /pt/s/rl/cj4svm/bin/every10min_fx.bash > /tmp/every10min_fx_bash.txt 2>&1
+# 40 * * * * /pt/s/rl/cj4svm/bin/every10min_fx.bash > /tmp/every10min_fx_bash.txt 2>&1
+46 * * * * /pt/s/rl/cj4svm/bin/hourly_fx.bash > /tmp/hourly_fx_bash.txt 2>&1
+

@@ -8,5 +8,5 @@
 
 export rvm_path=/home/oracle/.rvm
 source /home/oracle/.rvm/scripts/rvm
-export PATH=/pt/s/rl/cj4svm/bin:/home/oracle/.rvm/bin:$PATH
+export PATH=/pt/s/rl/cj4svm/bin:/home/oracle/.rvm/bin:/home/oracle/bin:$PATH
 export CJ4SVM=/pt/s/rl/cj4svm

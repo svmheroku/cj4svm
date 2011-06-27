@@ -42,7 +42,12 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
 
   it "Should run the sql script us_stk_past.sql" do
     `which sqt`.should == "/pt/s/rl/cj4svm/bin/sqt\n"
-    `/bin/ls -l us_stk_past.sql`.should == "-rw-r--r-- 1 oracle oinstall 3314 2011-06-19 07:23 us_stk_past.sql\n"
+
+    us_stk_past_sql = "/pt/s/rl/cj4svm/predictions/us_stk_past/us_stk_past.sql"
+    dglb = Dir.glob(us_stk_past_sql)
+    dglb.should == ["/pt/s/rl/cj4svm/predictions/us_stk_past/us_stk_past.sql"]
+    File.size(us_stk_past_sql).should == 3314
+
     # The script should have an exit so it will not hang:
     `grep exit us_stk_past.sql`.should match /^exit\n/
     time0 = Time.now

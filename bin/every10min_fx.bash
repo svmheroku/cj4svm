@@ -5,6 +5,9 @@
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 
+cd /pt/s/rl/cj4svm/
+. ./.cj
+
 # Now for Forex,
 # use expdp to copy data from active-fx-db into local-db:
 ssh z /pt/s/rl/cj4svm/bin/expdp_fx.bash

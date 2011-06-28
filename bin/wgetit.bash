@@ -7,8 +7,8 @@
 cd /tmp/
 
 rm -f index.html
-rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past
-rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.?
+rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map
+rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.?
 
 wget http://roboluck.com
 
@@ -22,5 +22,9 @@ wget http://roboluck.com/fx_past
 
 wget http://roboluck.com/us_stk_new
 wget http://roboluck.com/us_stk_past
+
+wget http://roboluck.com/contact
+wget http://roboluck.com/blog
+wget http://roboluck.com/site_map
 
 exit 0

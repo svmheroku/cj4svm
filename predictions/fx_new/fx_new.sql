@@ -33,7 +33,8 @@ pair
 -- ,ROUND(price_6hr,4)  price_6hr
 -- ,ROUND(price_6hr-price_1hr,4)gain_6hr1hr
 -- ,ROUND((price_6hr-price_1hr)/price_0hr,4)normalized_gain_5hr
-,ydate+6/24 gmt_time_at_hr6
+,CASE WHEN TO_CHAR(ydate,'Dy')='Fri'AND TO_CHAR(ydate,'HH24:MI')>'14:55'
+ THEN ydate+6/24+2 ELSE ydate+6/24 END gmt_time_at_hr6
 FROM fxpst12
 WHERE rnng_crr1 > 0.1
 AND ABS(score_diff) > 0.55

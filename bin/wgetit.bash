@@ -7,24 +7,25 @@
 cd /tmp/
 
 rm -f index.html
-rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map
-rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.?
+rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map leadership_team
+rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.? leadership_team.?
 
-wget http://roboluck.com
+wget http://bot4.us
 
-wget http://roboluck.com/predictions
+wget http://bot4.us/predictions
 
-wget http://roboluck.com/predictions/fx
-wget http://roboluck.com/predictions/us_stk
+wget http://bot4.us/predictions/fx
+wget http://bot4.us/predictions/us_stk
 
-wget http://roboluck.com/fx_new
-wget http://roboluck.com/fx_past
+wget http://bot4.us/fx_new
+wget http://bot4.us/fx_past
 
-wget http://roboluck.com/us_stk_new
-wget http://roboluck.com/us_stk_past
+wget http://bot4.us/us_stk_new
+wget http://bot4.us/us_stk_past
 
-wget http://roboluck.com/contact
-wget http://roboluck.com/blog
-wget http://roboluck.com/site_map
+wget http://bot4.us/contact
+wget http://bot4.us/blog
+wget http://bot4.us/site_map
+wget http://bot4.us/leadership_team
 
 exit 0

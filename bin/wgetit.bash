@@ -7,8 +7,9 @@
 cd /tmp/
 
 rm -f index.html
-rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map leadership_team
-rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.? leadership_team.?
+rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map leadership_team glossary
+rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.?
+rm -f glossary.?  leadership_team.?
 
 wget http://bot4.us
 
@@ -27,5 +28,6 @@ wget http://bot4.us/contact
 wget http://bot4.us/blog
 wget http://bot4.us/site_map
 wget http://bot4.us/leadership_team
+wget http://bot4.us/glossary
 
 exit 0

@@ -68,7 +68,9 @@ describe "cj helps me build both erb files and haml files which act as Rails tem
         if ei_h =~ /(\w\w\w_\w\w\w)/
           mypair1 = $1
           mypair2 = mypair1.sub(/_/,'')
-          elm.inner_html = "<a target='y' href='http://finance.yahoo.com/q?s=#{mypair2}=X'>#{mypair1}</a>"
+          # elm.inner_html = "<a target='y' href='http://finance.yahoo.com/q?s=#{mypair2}=X'>#{mypair1}</a>"
+          elm.inner_html = "<a target='g' href='http://www.google.com/finance?q=#{mypair2}'>#{mypair1}</a>"
+          # http://www.google.com/finance?q=EURUSD
         end
       }
 

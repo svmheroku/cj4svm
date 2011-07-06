@@ -8,9 +8,9 @@ cd /tmp/
 
 rm -f index.html
 rm -f predictions fx us_stk fx_new fx_past us_stk_new us_stk_past contact blog site_map leadership_team glossary
-rm -f books
+rm -f books tos
 rm -f predictions.? fx.? us_stk.? fx_new.? fx_past.? us_stk_new.? us_stk_past.? contact.? blog.? site_map.?
-rm -f glossary.?  leadership_team.? books.?
+rm -f glossary.?  leadership_team.? books.? tos.?
 
 wget http://bot4.us
 

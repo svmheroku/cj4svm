@@ -76,6 +76,8 @@ describe "cj helps me build both erb files and haml files which act as Rails tem
 
       # Overwrite the default:
       html4partial = table_elem.to_html
+      html4partial << "<br />"
+      html4partial << "<hr />"
     end
 
     # Im done, write it to the Rails partial:

@@ -151,6 +151,8 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
 
       # Load some html into a string:
       some_html = html_doc.search("table.table_fx_past_week").to_html
+      some_html << "<br />"
+      some_html << "<hr />"
 
       # I want a file for this URL pattern:
       # href="/fx_past/fx_past_wk2011_01_30"

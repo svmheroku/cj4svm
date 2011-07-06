@@ -169,7 +169,8 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
 
         # Load some html into a string:
         some_html = html_doc.search("table.table_us_stk_past_week").to_html
-
+        some_html << "<br />"
+        some_html << "<hr />"
         # Fill the file with HTML which I had obtained from sqlplus:
         html_f.puts bread_crumbs + h4_element + some_html
         html_f.close

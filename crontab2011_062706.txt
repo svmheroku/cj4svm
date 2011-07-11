@@ -1,5 +1,6 @@
 # /pt/s/rl/cj4svm/crontab2011_062706.txt
 7 0,2,4,6,8,10,12,14,16,18,20,22 * * * /pt/s/rl/cj4svm/bin/hourly.bash > /tmp/hourly_bash.txt 2>&1
 30 * * * * /pt/s/rl/cj4svm/bin/every10min.bash > /tmp/every10min_bash.txt 2>&1
-59 * * * * /pt/s/rluck/svmspy/exp2z2.bash > /tmp/exp2z2_bash.txt 2>&1
-1 14 * * * /pt/s/rluck/svmspy/run_loop_txt.bash > /tmp/run_loop_txt_bash.txt 2>&1
+7 1,3,5,7,9,11,13,15,17,19,21,23 * * * /pt/s/rl/cj4svm/bin/every10min.bash > /tmp/every10min_bash.txt 2>&1
+49 * * * * /pt/s/rluck/svmspy/exp2z2.bash > /tmp/exp2z2_bash.txt 2>&1
+1 14 * * 1,2,3,4,5 /pt/s/rluck/svmspy/run_loop_txt.bash > /tmp/run_loop_txt_bash.txt 2>&1

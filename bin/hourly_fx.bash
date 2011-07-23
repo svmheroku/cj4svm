@@ -5,31 +5,43 @@
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 
-cd /pt/s/rl/cj4svm/
-. ./.cj
+# If the /tmp/script_hourly_fx_busy.txt exists, I should exit.
 
-# Now for Forex,
-# use expdp to copy data from active-fx-db into local-db:
-ssh z /pt/s/rl/cj4svm/bin/expdp_fx.bash
+if [ -e "/tmp/script_hourly_fx_busy.txt" ]; then
+   echo The /tmp/script_hourly_fx_busy.txt exists.
+   echo If the /tmp/script_hourly_fx_busy.txt exists, I should exit.
+   exit
+else
+  date > /tmp/script_hourly_fx_busy.txt
 
-rsync z:dpdump/fx.dpdmp ~/dpdump/
-impdp trade/t table_exists_action=replace dumpfile=fx.dpdmp
+  cd /pt/s/rl/cj4svm/
+  . ./.cj
 
-# Copy data out of the DB into some partials:
-cd /pt/s/rl/cj4svm/predictions/fx_past/
-./index_spec.bash
+  # Now for Forex,
+  # use expdp to copy data from active-fx-db into local-db:
+  ssh z /pt/s/rl/cj4svm/bin/expdp_fx.bash
 
-# Now copy the new data to the Rails site:
+  rsync z:dpdump/fx.dpdmp ~/dpdump/
+  impdp trade/t table_exists_action=replace dumpfile=fx.dpdmp
 
-set -x
+  # Copy data out of the DB into some partials:
+  cd /pt/s/rl/cj4svm/predictions/fx_past/
+  ./index_spec.bash
 
-cd /pt/s/rl/svm/
-git add .
-git commit -a -v -m hourly.bash-commit
-git push origin master
-git push heroku master
+  # Now copy the new data to the Rails site:
 
-# Now, pull the new data into the Varnish-cache at the server:
-/pt/s/rl/cj4svm/bin/wgetit.bash
+  set -x
 
+  cd /pt/s/rl/svm/
+  git add .
+  git commit -a -v -m hourly.bash-commit
+  git push heroku master
+  git push origin master &
+
+  # Now, pull the new data into the Varnish-cache at the server:
+  /pt/s/rl/cj4svm/bin/wgetit.bash &
+
+  rm -f /tmp/script_hourly_fx_busy.txt
+
+fi
 exit 0

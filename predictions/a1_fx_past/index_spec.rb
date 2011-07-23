@@ -39,4 +39,10 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     (Time.now - File.ctime("a1_fx_past/_fx_past_spool.html.erb")).should < 2
   end
 ##
+
+  it "Should Fill each of the partials with data." do
+    # Start by pulling some syntax from the table fxpst12 which was built by ../fx_past/fx_past.sql
+    sql_output = `sqt @a1_fx_past_script_builder.sql`
+  end
+##
 end

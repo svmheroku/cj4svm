@@ -5,7 +5,7 @@
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 
-# If the /tmp/script_e10_fx_busy.txt exists, I should exit
+# If the /tmp/script_e10_fx_busy.txt exists, I should exit.
 
 if [ -e "/tmp/script_e10_fx_busy.txt" ]; then
    echo The /tmp/script_e10_fx_busy.txt exists.
@@ -34,8 +34,8 @@ else
   cd /pt/s/rl/svm/
   git add .
   git commit -a -v -m every10min.bash-commit
-  git push origin master
   git push heroku master
+  git push origin master &
 
   # Now, pull the new data into the Varnish-cache at the server:
   /pt/s/rl/cj4svm/bin/wgetit.bash

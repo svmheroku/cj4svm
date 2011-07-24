@@ -43,6 +43,12 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
   it "Should Fill each of the partials with data." do
     # Start by pulling some syntax from the table fxpst12 which was built by ../fx_past/fx_past.sql
     sql_output = `sqt @a1_fx_past_script_builder.sql`
+    # Now edit the built script
+    `grep a1_fx_past_week.sql /tmp/a1_fx_past_weeks.txt | grep -v cmd > /tmp/a1_fx_past_weeks.sql`
+    `echo exit >> /tmp/a1_fx_past_weeks.sql`
+    (Time.now - File.ctime("/tmp/a1_fx_past_weeks.sql")).should < 2
+    # Now call the built script
+    sql_output = `sqt @/tmp/a1_fx_past_weeks.sql`
   end
 ##
 end

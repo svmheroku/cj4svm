@@ -35,8 +35,8 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
 ##
 
   it "should copy then edit _fx_past_spool.html.erb" do
-    `cat fx_past/_fx_past_spool.html.erb | sed '1,$s,/fx_past/,/a1_fx_past/,'> a1_fx_past/_fx_past_spool.html.erb`
-    (Time.now - File.ctime("a1_fx_past/_fx_past_spool.html.erb")).should < 2
+    `cat fx_past/_fx_past_spool.html.erb | sed '1,$s,/fx_past/,/a1_fx_past/g,'> a1_fx_past/_a1_fx_past_spool.html.erb`
+    (Time.now - File.ctime("a1_fx_past/_a1_fx_past_spool.html.erb")).should < 2
   end
 ##
 
@@ -49,6 +49,47 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     (Time.now - File.ctime("/tmp/a1_fx_past_weeks.sql")).should < 2
     # Now call the built script
     sql_output = `sqt @/tmp/a1_fx_past_weeks.sql`
+
+    # Get a list of spool files created by sqlplus:
+    glb = Dir.glob("/tmp/tmp_a1_fx_past_week_20*.lst").sort
+    glb.size.should > 0
+
+
+    glb.each{|fn|
+#debug
+      p "in glb.each: #{fn}"
+#debug
+      # For each file, make note of the date embedded in the filename.
+      # The date should be a Sunday.
+      # I use the date to identify a weeks worth of data:
+      the_date = fn.sub(/tmp_a1_fx_past_week_/,'').sub(/.lst/,'').gsub(/-/,'_').sub(/\/.*\//,'')
+      the_date.should match /^201._.._../
+      # generate h4-element from the_date
+      h4_element = "<h4>Week of: #{the_date}</h4>"
+#debug
+    p "h4 element is: #{h4_element}"
+#debug
+      # Next, I feed the file to Nokogiri so I can access HTML in the file:
+      nokf = File.open(fn)
+      html_doc = Nokogiri::HTML(nokf)
+      nokf.close
+
+      # Load some html into a string:
+      some_html = html_doc.search("table.table_a1_fx_past_week").to_html
+      some_html << "<br />"
+      some_html << "<hr />"
+
+      # I want a file for this URL pattern:
+      # href="/a1_fx_past/a1_fx_past_wk2011_01_30"
+      html_f = File.new("./a1_fx_past/a1_fx_past_wk#{the_date}.html.erb", "w")
+
+      # Fill the file with HTML which I had obtained from sqlplus:
+      html_f.puts h4_element + some_html
+      p "#{html_f.path} File written"
+      html_f.close
+    } # glb.each
+
+
   end
 ##
 end

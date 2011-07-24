@@ -3,7 +3,7 @@
 --
 
 -- usage: @a1_fx_past_week.sql 2011-07-17
--- SET MARKUP HTML ON TABLE "class='table_a1_fx_past_week'"
+SET MARKUP HTML ON TABLE "class='table_a1_fx_past_week'"
 SPOOL /tmp/tmp_a1_fx_past_week_&1
 
 SELECT

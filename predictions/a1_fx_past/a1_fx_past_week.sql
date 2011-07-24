@@ -4,6 +4,19 @@
 
 -- usage: @a1_fx_past_week.sql 2011-07-17
 
+-- I use this script to get 1 week's worth of fx-prediction data.
+-- This script depends on tables created by fx_past.sql
+-- So, I should run fx_past.sql before I run a1_fx_past_week.sql
+
+-- Start by showing summarized data for each pair:
+
+COLUMN pair             FORMAT A8  HEADING     'Currency|Pair'
+COLUMN avg_danbot_score FORMAT 9.99 HEADING    'Avg|DanBot|Score' 
+COLUMN sharpe_ratio     FORMAT 9999.99 HEADING 'Sharpe|Ratio'  
+COLUMN avg_5hr_n_gain   FORMAT 99.9999 HEADING 'Avg of|normalized|5hr gains'   
+COLUMN prediction_count   FORMAT 9999  HEADING   'Count of|predictions'  
+COLUMN sum_5hr_n_gain   FORMAT 99.9999 HEADING 'Sum of|normalized|5hr gains'   
+
 BREAK ON REPORT
 
 COMPUTE SUM LABEL 'Sum:' OF sum_5hr_n_gain ON REPORT

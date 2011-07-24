@@ -35,7 +35,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
 ##
 
   it "should copy then edit _fx_past_spool.html.erb" do
-    `cat fx_past/_fx_past_spool.html.erb | sed '1,$s,/fx_past/,/a1_fx_past/g,'> a1_fx_past/_a1_fx_past_spool.html.erb`
+    `cat fx_past/_fx_past_spool.html.erb | sed '1,$s/fx_past/a1_fx_past/g'> a1_fx_past/_a1_fx_past_spool.html.erb`
     (Time.now - File.ctime("a1_fx_past/_a1_fx_past_spool.html.erb")).should < 2
   end
 ##

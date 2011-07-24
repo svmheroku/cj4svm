@@ -46,7 +46,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     fx_past_sql = "/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"
     dglb = Dir.glob(fx_past_sql)
     dglb.should == ["/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"]
-    File.size(fx_past_sql).should == 3266
+    File.size(fx_past_sql).should == 3366
     # The script should have an exit so it will not hang:
     `grep exit fx_past.sql`.should match /^exit\n/
     time0 = Time.now
@@ -57,25 +57,24 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     sql_output.should match /^Oracle Database 11g Enterprise Edition /
     sql_output.should match /fx_past.sql/
     sql_output.should match /^Recyclebin purged/
-    sql_output.should match /^@fx_past_week.sql 2011-05-08/
     sql_output.should match /^Disconnected from Oracle Database 11g /
     # I should see 2 recent spool files:
     (Time.now - File.ctime("/tmp/_fx_past_spool.html.erb")).should < 9
     (Time.now - File.ctime("/tmp/fx_past_week.txt")).should < 9
     # Do a small edit:
-    `grep -v 'rows selected' /tmp/_fx_past_spool.html.erb > /tmp/tmp.html`
-    (Time.now - File.ctime("/tmp/tmp.html")).should < 2
+    `grep -v 'rows selected' /tmp/_fx_past_spool.html.erb > /tmp/tmp_fx_past.html`
+    (Time.now - File.ctime("/tmp/tmp_fx_past.html")).should < 2
   end
 ##
 
-  # Use Nokogiri to massage the HTML in tmp.html and redirect it into the partial full of a-tags.
+  # Use Nokogiri to massage the HTML in tmp_fx_past.html and redirect it into the partial full of a-tags.
   # The partial is here:
   # ./fx_past/_fx_past_spool.html.erb
   # The partial is rendered in this file: 
   # ./fx_past/index.html.slim
 
-  it "Should Use Nokogiri to transform tmp.html into the partial full of a-tags." do
-    myf = File.open("/tmp/tmp.html")
+  it "Should Use Nokogiri to transform tmp_fx_past.html into the partial full of a-tags." do
+    myf = File.open("/tmp/tmp_fx_past.html")
     html_doc = Nokogiri::HTML(myf)
     myf.close
     td_elems = html_doc.search("td")
@@ -102,8 +101,6 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     `echo exit >> /tmp/run_fx_past_week.sql`
     (Time.now - File.ctime("/tmp/run_fx_past_week.sql")).should < 2
 
-    # I should see more than 5 SQL calls in /tmp/run_fx_past_week.sql:
-    `cat /tmp/run_fx_past_week.sql|wc -l`.chomp.to_i.should > 5
     p "Now calling sqlplus:"
     p "sqt @/tmp/run_fx_past_week.sql"
     sql_output = `sqt @/tmp/run_fx_past_week.sql`
@@ -115,7 +112,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
 
     # I start by getting a list of spool files created by sqlplus:
     glb = Dir.glob("/tmp/tmp_fx_past_week_20*.lst").sort
-    glb.size.should > 4
+    glb.size.should > 0
 
     glb.each{|fn|
       # For each file, make note of the date embedded in the filename.

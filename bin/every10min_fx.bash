@@ -26,6 +26,8 @@ else
   # Copy data out of the DB into some partials:
   cd /pt/s/rl/cj4svm/predictions/fx_new/
   ./index_spec.bash
+  cd /pt/s/rl/cj4svm/predictions/a1_fx_new/
+  ./index_spec.bash
 
   # Now copy the new data to the Rails site:
 

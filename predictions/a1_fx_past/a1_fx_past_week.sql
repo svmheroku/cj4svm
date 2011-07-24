@@ -3,6 +3,13 @@
 --
 
 -- usage: @a1_fx_past_week.sql 2011-07-17
+
+BREAK ON REPORT
+
+COMPUTE SUM LABEL 'Sum:' OF sum_5hr_n_gain ON REPORT
+COMPUTE SUM LABEL 'Sum:' OF prediction_count ON REPORT
+
+SET TIME off TIMING off ECHO off PAGESIZE 123 LINESIZE 188
 SET MARKUP HTML ON TABLE "class='table_a1_fx_past_week'"
 SPOOL /tmp/tmp_a1_fx_past_week_&1
 
@@ -23,6 +30,19 @@ AND price_6hr > 0
 GROUP BY pair
 HAVING(STDDEV(g5n) > 0)
 ORDER BY pair
+/
+
+COLUMN anote FORMAT A120 HEADING 'Note:'
+
+SELECT anote FROM
+(
+SELECT'When I sell, I want the gain to be negative, and when I buy I want it be positive.'anote FROM dual
+UNION
+SELECT'The table above displays negative DanBot scores which were signals to sell.'anote FROM dual
+UNION
+SELECT'Below, are positive DanBot scores which were signals to buy.'anote FROM dual
+)
+ORDER BY anote DESC
 /
 
 SELECT

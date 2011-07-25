@@ -71,8 +71,8 @@ GROUP BY targ,tkrdate
 ORDER BY targ,tkrdate
 /
 
-DROP TABLE us_stk_pst13;
-CREATE TABLE us_stk_pst13 COMPRESS AS
+DROP TABLE us_stk_pst13n;
+CREATE TABLE us_stk_pst13n COMPRESS AS
 SELECT
 m.tkr
 ,m.ydate
@@ -93,7 +93,7 @@ AND l.tkrdate = s.tkrdate
 AND l.tkrdate = m.tkrdate
 /
 
-ANALYZE TABLE us_stk_pst13 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
+ANALYZE TABLE us_stk_pst13n ESTIMATE STATISTICS SAMPLE 9 PERCENT;
 
 -- This script is called by other scripts.
 -- So, dont exit:

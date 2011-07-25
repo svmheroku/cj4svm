@@ -35,16 +35,11 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
     `ruby -v`.should include "ruby 1.9.2p246 (2011-05-30 revision 31821) [x86_64-linux]"
   end
 ##
-
-# working on this:
-
   it "should copy then edit _us_stk_past_spool.html.erb" do
     `cat us_stk_past/_us_stk_past_spool.html.erb | sed '1,$s/us_stk_past/a1_us_stk_past/g'> a1_us_stk_past/_a1_us_stk_past_spool.html.erb`
     (Time.now - File.ctime("a1_us_stk_past/_a1_us_stk_past_spool.html.erb")).should < 2
   end
 ##
-
-# Not done yet:
 
   it "Should Fill each of the partials with data." do
     # Start by pulling some syntax from the table us_stk_pst13 which was built by ../us_stk_past/us_stk_past.sql
@@ -83,8 +78,5 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
       html_f.close
     } # glb.each
   end
-
-
 ##
-
 end

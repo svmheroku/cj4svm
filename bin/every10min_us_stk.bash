@@ -19,6 +19,8 @@ else
   # Then, copy data out of local DB into some partials:
   cd /pt/s/rl/cj4svm/predictions/us_stk_new/
   ./index_spec.bash
+  cd /pt/s/rl/cj4svm/predictions/us_stk_c/
+  ./index_spec.bash
 
   # Now copy the new data to the Rails site:
 

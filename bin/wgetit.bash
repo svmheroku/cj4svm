@@ -23,6 +23,7 @@ wget http://bot4.us/fx_new
 wget http://bot4.us/fx_past
 
 wget http://bot4.us/us_stk_new
+wget http://bot4.us/us_stk_c
 wget http://bot4.us/us_stk_past
 
 wget http://bot4.us/blog

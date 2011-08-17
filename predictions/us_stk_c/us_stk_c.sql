@@ -35,6 +35,7 @@ FROM us_stk_pst13n
 WHERE rnng_crr1 > 0
 AND ABS(score_diff) > 0.55
 AND ydate > (SELECT MAX(ydate)FROM us_stk_pst13n WHERE ydate<TRUNC(sysdate)) - 2/24
+AND ydate < TRUNC(sysdate)
 ORDER BY SIGN(score_diff),tkr,ydate
 /
 

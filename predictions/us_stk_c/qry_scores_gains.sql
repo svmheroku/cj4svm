@@ -11,6 +11,7 @@ CREATE OR REPLACE VIEW scores_gains AS
 SELECT
 tkr
 ,ydate
+,price_0hr
 ,score_diff score
 ,g1hr
 ,g24hr
@@ -50,6 +51,19 @@ bullbear
 FROM scores_gains
 GROUP BY bullbear
 ORDER BY bullbear
+/
+
+-- Look at SPY ETF at min and max dates
+SELECT price_0hr 
+FROM scores_gains
+WHERE tkr = 'SPY'
+AND ydate = (SELECT MIN(ydate)FROM scores_gains WHERE tkr = 'SPY')
+/
+
+SELECT price_0hr 
+FROM scores_gains
+WHERE tkr = 'SPY'
+AND ydate = (SELECT MAX(ydate)FROM scores_gains WHERE tkr = 'SPY')
 /
 
 -- Look for CORR() between score, and g23hr

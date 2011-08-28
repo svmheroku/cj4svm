@@ -46,7 +46,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     fx_past_sql = "/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"
     dglb = Dir.glob(fx_past_sql)
     dglb.should == ["/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"]
-    File.size(fx_past_sql).should == 3366
+    File.size(fx_past_sql).should == 3399
     # The script should have an exit so it will not hang:
     `grep exit fx_past.sql`.should match /^exit\n/
     time0 = Time.now
@@ -130,7 +130,12 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
       bread_crumbs = "#{site_map} > #{predictions} > #{forex} > #{past_forex_predictions} > Week of: #{the_date}"
 
       # generate h4-element from the_date
-      h4_element = "<h4>Week of: #{the_date}</h4>"
+      h4_element = "<h4>Week of: #{the_date} (Bearish Predictions 1st, Then Bullish Predictions)</h4>"
+
+      # Add an anchor-element related to online help
+      data_description = "A description of the data in this page is here > "
+      data_description << "<a href='#' class='data_description'> Data Description</a>"
+      data_description << "<br /><br />"
 
       # Next, I feed the file to Nokogiri so I can access HTML in the file:
       nokf = File.open(fn)
@@ -155,7 +160,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
       # href="/fx_past/fx_past_wk2011_01_30"
       html_f = File.new("./fx_past/fx_past_wk#{the_date}.html.erb", "w")
       # Fill the file with HTML which I had obtained from sqlplus:
-      html_f.puts bread_crumbs + h4_element + some_html
+      html_f.puts bread_crumbs + h4_element + data_description + some_html
       p "#{html_f.path} File written"
       html_f.close
     }

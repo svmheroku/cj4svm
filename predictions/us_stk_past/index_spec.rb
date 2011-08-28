@@ -140,7 +140,12 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
       bread_crumbs = "#{site_map} > #{predictions} > #{us_stk} > #{past_us_stk_predictions} > Week of: #{the_date}"
 
       # generate h4-element from the_date
-      h4_element = "<h4>Week of: #{the_date}</h4>"
+      h4_element = "<h4>Week of: #{the_date} (Bearish Predictions 1st, Then Bullish Predictions)</h4>"
+
+      # Add an anchor-element related to online help
+      data_description = "A description of the data in this page is here > "
+      data_description << "<a href='#' class='data_description'> Data Description</a>"
+      data_description << "<br /><br />"
 
       # Next, I feed the file to Nokogiri so I can access HTML in the file:
       nokf = File.open(fn)
@@ -172,7 +177,7 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
         some_html << "<br />"
         some_html << "<hr />"
         # Fill the file with HTML which I had obtained from sqlplus:
-        html_f.puts bread_crumbs + h4_element + some_html
+        html_f.puts bread_crumbs + h4_element + data_description + some_html
         html_f.close
       end # if table_elem.nil?
       p "#{html_f.path} File written"

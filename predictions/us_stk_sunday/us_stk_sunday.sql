@@ -18,7 +18,7 @@ tkr
 FROM stkscores23
 GROUP BY tkr
 ORDER BY MIN(ydate),tkr
-/
+-- /
 
 -- Do I have recent data?
 SELECT
@@ -29,7 +29,7 @@ tkr
 FROM stkscores23
 GROUP BY tkr
 ORDER BY MAX(ydate),tkr
-/
+-- /
 
 -- Next, report on prices.
 
@@ -42,7 +42,7 @@ tkr
 FROM ibs5min
 GROUP BY tkr
 ORDER BY MIN(ydate),tkr
-/
+-- /
 
 -- Do I have recent data?
 SELECT
@@ -53,7 +53,7 @@ tkr
 FROM ibs5min
 GROUP BY tkr
 ORDER BY MAX(ydate),tkr
-/
+-- /
 
 -- join on tkrdate
 -- CREATE OR REPLACE VIEW us_stk_sundayv1 AS
@@ -89,17 +89,70 @@ tkr
 FROM us_stk_sundayt1
 WHERE 1+ydate = '2011-09-23 19:55:00'
 AND tkr = 'YUM'
-/
+-- /
 
 -- look at data:
+
+COLUMN sum_g1day FORMAT 9999999.99
+COLUMN cum_sum   FORMAT 9999999.99
+
 SELECT
-ydate
-,SUM(g1day)
-,COUNT(g1day)
+tdate
+,prediction_count
+,sum_g1day
+,SUM(sum_g1day)OVER(ORDER BY tdate)cum_sum
+FROM
+(
+  SELECT
+  trunc(ydate)  tdate
+  ,COUNT(g1day) prediction_count
+  ,SUM(g1day)   sum_g1day
+  FROM us_stk_sundayt1
+  WHERE ydate > '2011-01-01'
+  AND score > 0.55
+  GROUP BY trunc(ydate)
+)
+ORDER BY tdate
+/
+
+-- Look at Sharpe Ratio:
+SELECT
+AVG(g1day)/STDDEV(g1day) sharpe_ratio
 FROM us_stk_sundayt1
-WHERE 1+ydate = '2011-09-23 19:55:00'
+WHERE ydate > '2011-01-01'
 AND score > 0.55
-GROUP BY ydate
+/
+
+-- What is the avg count of predictions each day?
+SELECT MAX(count_g1day)/MAX(count_dst_date) avg_count_per_day
+FROM
+(
+SELECT COUNT(g1day)count_g1day,NULL                   count_dst_date FROM us_stk_sundayt1 WHERE ydate > '2011-01-01'
+  AND score > 0.55
+UNION
+SELECT NULL count_g1day, COUNT(DISTINCT TRUNC(ydate)) count_dst_date FROM us_stk_sundayt1 WHERE ydate > '2011-01-01'
+)
+/
+
+exit
+
+SELECT
+tdate
+,prediction_count
+,sum_g1day
+,SUM(sum_g1day)OVER(ORDER BY tdate)cum_sum
+FROM
+(
+  SELECT
+  trunc(ydate)  tdate
+  ,COUNT(g1day) prediction_count
+  ,SUM(g1day)   sum_g1day
+  FROM us_stk_sundayt1
+  WHERE ydate > '2011-01-01'
+  AND score < -0.55
+  GROUP BY trunc(ydate)
+)
+ORDER BY tdate
 /
 
 exit

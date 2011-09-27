@@ -95,6 +95,7 @@ AND tkr = 'YUM'
 
 COLUMN sum_g1day FORMAT 9999999.99
 COLUMN cum_sum   FORMAT 9999999.99
+SET COLSEP ","
 
 SELECT
 tdate

@@ -127,14 +127,12 @@ AND score > 0.55
 SELECT MAX(count_g1day)/MAX(count_dst_date) avg_count_per_day
 FROM
 (
-SELECT COUNT(g1day)count_g1day,NULL                   count_dst_date FROM us_stk_sundayt1 WHERE ydate > '2011-01-01'
+SELECT COUNT(g1day)count_g1day,NULL                 count_dst_date FROM us_stk_sundayt1 WHERE ydate>'2011-01-01'
   AND score > 0.55
 UNION
-SELECT NULL count_g1day, COUNT(DISTINCT TRUNC(ydate)) count_dst_date FROM us_stk_sundayt1 WHERE ydate > '2011-01-01'
+SELECT NULL count_g1day,COUNT(DISTINCT TRUNC(ydate))count_dst_date FROM us_stk_sundayt1 WHERE ydate>'2011-01-01'
 )
 /
-
-exit
 
 SELECT
 tdate
@@ -153,6 +151,25 @@ FROM
   GROUP BY trunc(ydate)
 )
 ORDER BY tdate
+/
+
+-- Look at Sharpe Ratio:
+SELECT
+AVG(g1day)/STDDEV(g1day) sharpe_ratio
+FROM us_stk_sundayt1
+WHERE ydate > '2011-01-01'
+AND score < -0.55
+/
+
+-- What is the avg count of predictions each day?
+SELECT MAX(count_g1day)/MAX(count_dst_date) avg_count_per_day
+FROM
+(
+SELECT COUNT(g1day)count_g1day,NULL                 count_dst_date FROM us_stk_sundayt1 WHERE ydate>'2011-01-01'
+  AND score < -0.55
+UNION
+SELECT NULL count_g1day,COUNT(DISTINCT TRUNC(ydate))count_dst_date FROM us_stk_sundayt1 WHERE ydate>'2011-01-01'
+)
 /
 
 exit

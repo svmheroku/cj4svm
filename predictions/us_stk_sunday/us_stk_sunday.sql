@@ -137,6 +137,7 @@ SELECT NULL count_g1day,COUNT(DISTINCT TRUNC(ydate))count_dst_date FROM us_stk_s
 
 SELECT
 tdate
+,rownum rrownum
 ,prediction_count
 ,sum_g1day
 ,SUM(sum_g1day)OVER(ORDER BY tdate)cum_sum
@@ -150,8 +151,8 @@ FROM
   WHERE ydate > '2011-01-01'
   AND score < -0.55
   GROUP BY trunc(ydate)
+  ORDER BY trunc(ydate)
 )
-ORDER BY tdate
 /
 
 -- Look at Sharpe Ratio:

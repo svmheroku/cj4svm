@@ -97,8 +97,11 @@ COLUMN sum_g1day FORMAT 9999999.99
 COLUMN cum_sum   FORMAT 9999999.99
 SET COLSEP ","
 
+-- Get bullish CSV data:
+
 SELECT
 tdate
+,rownum rrownum
 ,prediction_count
 ,sum_g1day
 ,SUM(sum_g1day)OVER(ORDER BY tdate)cum_sum
@@ -112,8 +115,8 @@ FROM
   WHERE ydate > '2011-01-01'
   AND score > 0.55
   GROUP BY trunc(ydate)
+  ORDER BY trunc(ydate)
 )
-ORDER BY tdate
 /
 
 -- Look at Sharpe Ratio:
@@ -135,6 +138,7 @@ SELECT NULL count_g1day,COUNT(DISTINCT TRUNC(ydate))count_dst_date FROM us_stk_s
 )
 /
 
+-- Get bearish CSV data:
 SELECT
 tdate
 ,rownum rrownum

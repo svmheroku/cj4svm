@@ -4,9 +4,9 @@
 # us_stk_sunday.sql
 
 # Define the .png file which will hold the output:
-png("us_stk_sunday_s.png",width = 1100, height = 1100)
+png("us_stk_sunday.png",width = 1100, height = 1100)
 
-us_stk_sunday = read.csv("us_stk_sunday_s.csv")
+us_stk_sunday_s = read.csv("us_stk_sunday_s.csv")
 # I want to label every 10 days:
 labels4sunday = read.csv("labels4sunday.csv")
 
@@ -16,54 +16,49 @@ xtl_perp = 2
 # plot with ticks turned off:
 par()$mar
 par(mar=c(6.2, 4.1, 4.1, 2.1))
-plot(us_stk_sunday$TDATE
-  ,us_stk_sunday$CUM_SUM
+plot(us_stk_sunday_s$TDATE
+  ,us_stk_sunday_s$CUM_SUM
   ,xaxt = 'n'
   ,las = ytl_perp
-  ,main = "Performance of DanBot Bearish Predictions (Negative Slope is Good Performance)"
+  ,main = "Performance of DanBot Predictions (Green = Bullish, Red = Bearish)"
   ,ylab = "US Dollars"
   ,type = "n"
+  ,ylim = c(-15000, 15000)
 )
 
 # Connect the dots:
-lines(us_stk_sunday$TDATE
-  ,us_stk_sunday$CUM_SUM
+lines(us_stk_sunday_s$TDATE
+  ,us_stk_sunday_s$CUM_SUM
   ,type = "o"
+  ,col="red"
 )
-
-#  ,xlab = "Dates (Approximately 10 trading days apart)"
 
 # add x-axis with ticks every 10 days and labels for each tick:
 axis(1, at=labels4sunday$RROWNUM, labels=labels4sunday$TDATE, las = xtl_perp)
-grid()
-dev.off()
 
-
+# Now overlay another plot:
+# http://pj.freefaculty.org/R/Rtips.html#5.11
+par(new = TRUE) 
 
 # Now I plot the bullish predictions.
 
-# Define the .png file which will hold the output:
-png("us_stk_sunday_l.png",width = 1100, height = 1100)
-
 # Get the bullish data from the csv file:
-us_stk_sunday = read.csv("us_stk_sunday_l.csv")
+us_stk_sunday_l = read.csv("us_stk_sunday_l.csv")
 
-plot(us_stk_sunday$TDATE
-  ,us_stk_sunday$CUM_SUM
+plot(us_stk_sunday_l$TDATE
+  ,us_stk_sunday_l$CUM_SUM
   ,xaxt = 'n'
-  ,las = ytl_perp
-  ,main = "Performance of DanBot Bullish Predictions (Positive Slope is Good Performance)"
-  ,ylab = "US Dollars"
+  ,yaxt = 'n'
   ,type = "n"
+  ,ylim = c(-15000, 15000)
 )
 
 # Connect the dots:
-lines(us_stk_sunday$TDATE
-  ,us_stk_sunday$CUM_SUM
+lines(us_stk_sunday_l$TDATE
+  ,us_stk_sunday_l$CUM_SUM
   ,type = "o"
+  ,col="green"
 )
 
-# add x-axis with ticks every 10 days and labels for each tick:
-axis(1, at=labels4sunday$RROWNUM, labels=labels4sunday$TDATE, las = xtl_perp)
 grid()
 dev.off()

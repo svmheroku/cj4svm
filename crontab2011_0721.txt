@@ -4,4 +4,4 @@
 11 * * * * /pt/s/rluck/svmspy/exp_2_expscores.bash > /tmp/exp_2_expscores_bash.txt 2>&1
 1 13 * * 1,2,3,4,5 /pt/s/rluck/svmspy/run_loop_txt.bash > /tmp/run_loop_txt_bash.txt 2>&1
 59 19 * * 1,2,3,4,5 /pt/s/rluck/svmspy/dl180_via_cron.bash > /tmp/dl180_via_cron_bash.txt 2>&1
-33 13 26 9 * /pt/s/rluck/svmspy/loop_til_sat.bash > /tmp/loop_til_sat_bash.txt 2>&1
+33 13 3 10 * /pt/s/rluck/svmspy/loop_til_sat.bash > /tmp/loop_til_sat_bash.txt 2>&1

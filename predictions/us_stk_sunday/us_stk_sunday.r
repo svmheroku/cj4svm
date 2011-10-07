@@ -4,7 +4,7 @@
 # us_stk_sunday.sql
 
 # Define the .png file which will hold the output:
-png("us_stk_sunday.png",width = 1100, height = 1100)
+png("us_stk_sunday.png",width = 900, height = 900)
 
 us_stk_sunday_s = read.csv("us_stk_sunday_s.csv")
 # I want to label every 10 days:
@@ -20,7 +20,7 @@ plot(us_stk_sunday_s$TDATE
   ,us_stk_sunday_s$CUM_SUM
   ,xaxt = 'n'
   ,las = ytl_perp
-  ,main = "Performance of DanBot Predictions (Green = Bullish, Red = Bearish)"
+  ,main = "Performance of DanBot US Stock Predictions (Green = Bullish, Red = Bearish)"
   ,ylab = "US Dollars"
   ,type = "n"
   ,ylim = c(-15000, 15000)

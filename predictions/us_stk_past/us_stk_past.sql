@@ -129,6 +129,7 @@ i.tkr
 ,selldate
 ,g24hr
 ,score
+,COVAR_POP(score,g24hr)OVER(PARTITION BY s.tkr ORDER BY s.ydate ROWS BETWEEN 12*24*5 PRECEDING AND CURRENT ROW)rnng_crr1
 FROM ibs5min_sun i, stkscores_sunlj s
 WHERE i.tkr = s.tkr AND i.ydate = s.ydate
 ORDER BY i.tkr,i.ydate
@@ -147,6 +148,7 @@ i.tkr
 ,selldate
 ,g24hr
 ,score
+,COVAR_POP(score,g24hr)OVER(PARTITION BY s.tkr ORDER BY s.ydate ROWS BETWEEN 12*24*5 PRECEDING AND CURRENT ROW)rnng_crr1
 FROM ibs5min_sun i, stkscores_sunsj s
 WHERE i.tkr = s.tkr AND i.ydate = s.ydate
 ORDER BY i.tkr,i.ydate
@@ -175,6 +177,7 @@ FROM
   ,SUM(g24hr)              sum_g24hr
   FROM us_stk_sunday_l
   WHERE ydate > '2011-01-01'
+  AND rnng_crr1 > 0
   GROUP BY TO_CHAR(ydate,'YYYY-WW')
   ORDER BY TO_CHAR(ydate,'YYYY-WW')
 )
@@ -201,11 +204,45 @@ FROM
   ,SUM(g24hr)              sum_g24hr
   FROM us_stk_sunday_s
   WHERE ydate > '2011-01-01'
+  AND rnng_crr1 > 0
   GROUP BY TO_CHAR(ydate,'YYYY-WW')
   ORDER BY TO_CHAR(ydate,'YYYY-WW')
 )
 /
 
+SPOOL OFF
+
+
+-- This SELECT gives me text for a-tags
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+SET TIME off TIMING off ECHO off HEADING off
+SET MARKUP HTML ON TABLE "id='table_us_stk_past'" ENTMAP ON
+SPOOL /tmp/_us_stk_past_spool.html.erb
+
+SELECT
+'Week: '||MIN(ydate)||' Through '||MAX(ydate) wweek
+FROM us_stk_sunday_s
+WHERE price_24hr > 0
+AND rnng_crr1 > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
+/
+
+SPOOL OFF
+SET MARKUP HTML OFF
+
+-- This SELECT gives me syntax to run a series of SQL scripts.
+-- Each script will give me data for 1 week.
+
+SPOOL /tmp/us_stk_past_week.txt
+SELECT
+'@us_stk_past_week.sql '||MIN(ydate) cmd
+FROM us_stk_sunday_s
+WHERE price_24hr > 0
+AND rnng_crr1 > 0
+GROUP BY TO_CHAR(ydate,'WW')
+ORDER BY MIN(ydate)
+/
 SPOOL OFF
 
 exit

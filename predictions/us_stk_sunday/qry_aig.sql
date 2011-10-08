@@ -32,6 +32,11 @@ AND TRUNC(ydate) = '2011-02-15'
 SELECT * FROM stkscores_sunsj
 WHERE tkr = 'AIG'
 AND TRUNC(ydate) = '2011-02-15'
+
+
+SELECT * FROM us_stk_sunday_s
+WHERE tkr = 'AIG'
+AND TRUNC(ydate) = '2011-02-15'
 /
 
 

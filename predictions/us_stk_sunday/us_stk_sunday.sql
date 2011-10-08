@@ -7,21 +7,21 @@
 -- Start by getting a copy of stkscores:
 
 PURGE RECYCLEBIN;
-DROP TABLE ibs5min_sun1
+DROP TABLE ibs5min_sun1;
 
-DROP TABLE ibs5min_sun
+DROP TABLE ibs5min_sun;
 
-DROP TABLE stkscores_sunl
+DROP TABLE stkscores_sunl;
 
-DROP TABLE stkscores_suns
+DROP TABLE stkscores_suns;
 
-DROP TABLE stkscores_sunlj
+DROP TABLE stkscores_sunlj;
 
-DROP TABLE stkscores_sunsj
+DROP TABLE stkscores_sunsj;
 
-DROP TABLE us_stk_sunday_l
+DROP TABLE us_stk_sunday_l;
 
-DROP TABLE us_stk_sunday_s
+DROP TABLE us_stk_sunday_s;
 
 CREATE TABLE ibs5min_sun1 COMPRESS AS
 SELECT
@@ -101,6 +101,8 @@ CREATE INDEX stkscores_sunlji1 ON stkscores_sunlj(tkr,ydate);
 ANALYZE TABLE ibs5min_sun     ESTIMATE STATISTICS SAMPLE 11 PERCENT;
 ANALYZE TABLE stkscores_sunsj ESTIMATE STATISTICS SAMPLE 11 PERCENT;
 ANALYZE TABLE stkscores_sunlj ESTIMATE STATISTICS SAMPLE 11 PERCENT;
+
+exit
 
 
 -- rpt

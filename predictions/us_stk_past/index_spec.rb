@@ -46,7 +46,7 @@ describe "cj4svm helps me build both erb files which act as Rails templates" do
     us_stk_past_sql = "/pt/s/rl/cj4svm/predictions/us_stk_past/us_stk_past.sql"
     dglb = Dir.glob(us_stk_past_sql)
     dglb.should == ["/pt/s/rl/cj4svm/predictions/us_stk_past/us_stk_past.sql"]
-    File.size(us_stk_past_sql).should == 3314
+    File.size(us_stk_past_sql).should == 5456
 
     # The script should have an exit so it will not hang:
     `grep exit us_stk_past.sql`.should match /^exit\n/

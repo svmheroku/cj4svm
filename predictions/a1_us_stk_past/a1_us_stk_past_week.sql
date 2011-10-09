@@ -32,7 +32,7 @@ SPOOL /tmp/tmp_a1_us_stk_past_week_&1
 SELECT
 tkr
 ,ROUND(AVG(price_0hr),2)  avg_tkr_price
-,ROUND(AVG(score_diff),2) avg_danbot_score
+,ROUND(AVG(score),2) avg_danbot_score
 ,CASE WHEN STDDEV(g24hr)=0 THEN ROUND((AVG(g24hr)/0.01),2)
  ELSE ROUND((AVG(g24hr)/STDDEV(g24hr)),2) END sharpe_ratio
 ,ROUND(AVG(g1hr),2)    avg_1hr_gain
@@ -40,9 +40,8 @@ tkr
 ,COUNT(g24hr)          position_count
 ,ROUND(SUM(g24hr),2)   sum_24hr_gain
 ,ROUND(STDDEV(g24hr),2)stddev_24hr_gain
-FROM us_stk_pst13
+FROM us_stk_sunday_s
 WHERE rnng_crr1 > 0
-AND score_diff < -0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g24hr != 0
@@ -68,7 +67,7 @@ ORDER BY anote DESC
 SELECT
 tkr
 ,ROUND(AVG(price_0hr),2)  avg_tkr_price
-,ROUND(AVG(score_diff),2) avg_danbot_score
+,ROUND(AVG(score),2) avg_danbot_score
 ,CASE WHEN STDDEV(g24hr)=0 THEN ROUND((AVG(g24hr)/0.01),2)
  ELSE ROUND((AVG(g24hr)/STDDEV(g24hr)),2) END sharpe_ratio
 ,ROUND(AVG(g1hr),2)    avg_1hr_gain
@@ -76,9 +75,8 @@ tkr
 ,COUNT(g24hr)          position_count
 ,ROUND(SUM(g24hr),2)   sum_24hr_gain
 ,ROUND(STDDEV(g24hr),2)stddev_24hr_gain
-FROM us_stk_pst13
+FROM us_stk_sunday_l
 WHERE rnng_crr1 > 0
-AND score_diff > 0.55
 AND ydate > '&1'
 AND ydate - 7 < '&1'
 AND g24hr != 0

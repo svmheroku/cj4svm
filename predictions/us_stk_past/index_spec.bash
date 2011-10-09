@@ -12,12 +12,12 @@ echo now at:
 pwd
 
 # Next, I expdp/impdp 2 new tables:
-echo 'ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash'
-ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash
-rsync -vz z3:dpdump/us_stk_past.dpdmp ~/dpdump/
-# For the 1st impdp use: table_exists_action=replace
-echo 'impdp trade/t table_exists_action=replace dumpfile=us_stk_past.dpdmp'
-impdp trade/t table_exists_action=replace dumpfile=us_stk_past.dpdmp tables=us_stk_pst21,stkscores21
+# echo 'ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash'
+# ssh z3 /pt/s/rl/cj4svm/predictions/us_stk_past/expdp_past.bash
+# rsync -vz z3:dpdump/us_stk_past.dpdmp ~/dpdump/
+# # For the 1st impdp use: table_exists_action=replace
+# echo 'impdp trade/t table_exists_action=replace dumpfile=us_stk_past.dpdmp'
+# impdp trade/t table_exists_action=replace dumpfile=us_stk_past.dpdmp tables=us_stk_pst21,stkscores21
 
 # If/when I impdp from other hosts,
 # I need to direct that: table_exists_action=append

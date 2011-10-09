@@ -7,6 +7,69 @@
 -- I need dates to match-up to the second:
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD hh24:mi:ss';
 
+-- This script depends on this script:
+-- @../us_stk_past/us_stk_past.sql
+
+
+-- Get bullish CSV data:
+SPOOL /tmp/us_stk_sunday_l.txt
+
+COLUMN sum_g1day FORMAT 9999999.99
+COLUMN cum_sum   FORMAT 9999999.99
+SET COLSEP ","
+
+SELECT
+wk
+,rownum rrownum
+,prediction_count
+,sum_g1day
+,SUM(sum_g1day)OVER(ORDER BY wk)cum_sum
+FROM
+(
+  SELECT
+  to_char(ydate,'yyyy-ww') wk
+  ,COUNT(g1day)              prediction_count
+  ,SUM(g1day)                sum_g1day
+  FROM us_stk_sunday_l
+  WHERE ydate > '2011-01-01'
+  GROUP BY TO_CHAR(ydate,'YYYY-WW')
+  ORDER BY TO_CHAR(ydate,'YYYY-WW')
+)
+/
+
+SPOOL OFF
+
+exit
+-- Get bearish CSV data:
+SPOOL /tmp/us_stk_sunday_s.txt
+
+SELECT
+wk
+,rownum rrownum
+,prediction_count
+,sum_g1day
+,SUM(sum_g1day)OVER(ORDER BY wk)cum_sum
+FROM
+(
+  SELECT
+  to_char(ydate,'yyyy-ww') wk
+  ,COUNT(g1day)              prediction_count
+  ,SUM(g1day)                sum_g1day
+  FROM us_stk_sunday_s
+  WHERE ydate > '2011-01-01'
+  GROUP BY to_char(ydate,'yyyy-ww')
+  ORDER BY to_char(ydate,'yyyy-ww')
+)
+/
+
+SPOOL OFF
+
+exit
+
+
+
+exit
+
 -- Start by getting a copy of stkscores:
 
 PURGE RECYCLEBIN;

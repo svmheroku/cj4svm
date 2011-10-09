@@ -11,12 +11,12 @@ SPOOL /tmp/a1_us_stk_past_weeks.txt
 
 SELECT
 '@a1_us_stk_past_week.sql '||MIN(ydate) cmd
-FROM us_stk_pst13
+FROM us_stk_sunday_s
 WHERE price_24hr > 0
+AND rnng_crr1 > 0
 GROUP BY TO_CHAR(ydate,'WW')
 ORDER BY MIN(ydate)
 /
-
 SPOOL OFF
 
 exit

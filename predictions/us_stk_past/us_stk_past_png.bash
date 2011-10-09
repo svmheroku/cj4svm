@@ -19,5 +19,8 @@ grep '^201' /tmp/us_stk_sunday_l.txt >> /tmp/us_stk_sunday_l.csv
 grep '^201' /tmp/us_stk_sunday_s.txt >> /tmp/us_stk_sunday_s.csv
 
 /usr/bin/R -f us_stk_past_png.r
+cp /tmp/us_stk_sunday.png /pt/s/rl/svm/public/images/
+
+exit 0
 
 

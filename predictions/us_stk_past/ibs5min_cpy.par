@@ -1,0 +1,3 @@
+QUERY='WHERE ydate > sysdate - 5'
+DUMPFILE=ibs5min_cpy.dpdmp
+TABLES=ibs5min

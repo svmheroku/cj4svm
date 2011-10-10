@@ -27,6 +27,10 @@ pwd
 # us_stk_past.sql
 # which is called by index_spec.rb.
 
+# I have commented out lines above which I no longer use.
+# They have been replaced by the script below:
+./ibs5min_cpy.bash
+
 bundle exec rspec index_spec.rb
 
 exit 0

@@ -4,6 +4,9 @@
 
 -- I use this script to join gains with scores.
 
+-- This script depends on ibs5min_cpy.bash
+-- which fills ibs5min_cpy with recent data from ibs5min from both z2, z3.
+
 -- I need dates to match-up to the second:
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD hh24:mi:ss';
 
@@ -30,10 +33,13 @@ CREATE TABLE ibs5min_sun1 COMPRESS AS
 SELECT
 tkr,ydate
 ,AVG(clse)clse
-FROM ibs5min
+FROM ibs5min_cpy
 GROUP BY tkr,ydate
 ORDER BY tkr,ydate
 /
+
+TRUNCATE TABLE ibs5min_cpy;
+INSERT INTO ibs5min_cpy(tkr,ydate,clse)SELECT tkr,ydate,clse FROM ibs5min_sun1;
 
 CREATE TABLE ibs5min_sun COMPRESS AS
 SELECT

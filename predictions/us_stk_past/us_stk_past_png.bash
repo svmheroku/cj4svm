@@ -5,7 +5,7 @@
 # I use this script to create a png file for the splash page.
 # The png file shows a weekly summary of DanBot performance.
 
-# Assume that us_stk_past.sql has been run and CSV data landed here:
+# Assume that us_stk_past.sql (via index_spec.bash) has been run and CSV data landed here:
 # /tmp/us_stk_sunday_l.txt
 # /tmp/us_stk_sunday_s.txt
 

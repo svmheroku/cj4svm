@@ -9,6 +9,7 @@
 
 cd /pt/s/rl/cj4svm/bin/
 ./every10min_fx.bash
-./every10min_us_stk.bash
+# I need to enhance the script below:
+# ./every10min_us_stk.bash
 
 exit 0

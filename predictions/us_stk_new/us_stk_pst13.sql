@@ -50,7 +50,9 @@ FROM us_stk_pst19
 ORDER BY tkrdate
 /
 
-ANALYZE TABLE us_stk_pst11 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
+CREATE INDEX us_stk_pst11_i1 ON us_stk_pst11(tkrdate);
+
+ANALYZE TABLE us_stk_pst11 ESTIMATE STATISTICS SAMPLE 22 PERCENT;
 
 -- Now join us_stk_pst11 with stkscores17.
 -- stkscores17 is created by expdp_us_stk_new_prep.sql
@@ -70,6 +72,10 @@ FROM stkscores17
 GROUP BY targ,tkrdate
 ORDER BY targ,tkrdate
 /
+
+CREATE INDEX stkscores19_i1 ON stkscores19(targ,tkrdate);
+
+ANALYZE TABLE stkscores19 ESTIMATE STATISTICS SAMPLE 22 PERCENT;
 
 DROP TABLE us_stk_pst13n;
 CREATE TABLE us_stk_pst13n COMPRESS AS
@@ -93,7 +99,7 @@ AND l.tkrdate = s.tkrdate
 AND l.tkrdate = m.tkrdate
 /
 
-ANALYZE TABLE us_stk_pst13n ESTIMATE STATISTICS SAMPLE 9 PERCENT;
+ANALYZE TABLE us_stk_pst13n ESTIMATE STATISTICS SAMPLE 22 PERCENT;
 
 -- This script is called by other scripts.
 -- So, dont exit:

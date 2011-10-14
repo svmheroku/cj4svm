@@ -2,6 +2,9 @@
 
 # hourly_us_stk.bash
 
+# Although this script is called "hourly" it loads the host too much.
+# I want to run it once or twice at night after the market closes.
+
 # I use this script to copy data out of the DB into some partials.
 # Then, it uses git to copy those partials to the Rails site.
 

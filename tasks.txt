@@ -1,0 +1,6 @@
+/pt/s/rl/cj/tasks.txt
+
+This url shows data from July:
+  - http://bot4.us/a1_us_stk_new
+
+I need a plot of forex performance.

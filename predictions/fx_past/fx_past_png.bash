@@ -12,8 +12,8 @@
 set -x
 cd /pt/s/rl/cj/predictions/fx_past/
 
-echo 'WK, WEEK_OF, RROWNUM, PREDICTION_COUNT, SUM_G24HR, CUM_SUM' > /tmp/fx_sunday_l.csv
-echo 'WK, WEEK_OF, RROWNUM, PREDICTION_COUNT, SUM_G24HR, CUM_SUM' > /tmp/fx_sunday_s.csv
+echo 'WK, WEEK_OF, RROWNUM, PREDICTION_COUNT, SUM_G5N, CUM_SUM' > /tmp/fx_sunday_l.csv
+echo 'WK, WEEK_OF, RROWNUM, PREDICTION_COUNT, SUM_G5N, CUM_SUM' > /tmp/fx_sunday_s.csv
 
 grep '^201' /tmp/fx_sunday_l.txt >> /tmp/fx_sunday_l.csv
 grep '^201' /tmp/fx_sunday_s.txt >> /tmp/fx_sunday_s.csv

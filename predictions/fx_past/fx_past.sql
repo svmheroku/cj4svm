@@ -31,7 +31,12 @@ AND clse > 0
 ORDER BY pair,ydate
 /
 
-ANALYZE TABLE fxpst10 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
+-- Build some indexes so the next join speeds up:
+CREATE INDEX svm62scores_i1 ON svm62scores(targ,prdate);
+CREATE INDEX fxpst10_i1 ON fxpst10(prdate);
+
+ANALYZE TABLE svm62scores ESTIMATE STATISTICS SAMPLE 22 PERCENT;
+ANALYZE TABLE fxpst10 ESTIMATE STATISTICS SAMPLE 22 PERCENT;
 
 DROP TABLE fxpst12;
 CREATE TABLE fxpst12 COMPRESS AS
@@ -62,7 +67,7 @@ AND l.ydate > '2011-01-30'
 AND s.ydate > '2011-01-30'
 /
 
-ANALYZE TABLE fxpst12 ESTIMATE STATISTICS SAMPLE 9 PERCENT;
+ANALYZE TABLE fxpst12 ESTIMATE STATISTICS SAMPLE 22 PERCENT;
 
 -- rpt
 -- This SELECT gives me a list of recent week-names.
@@ -121,6 +126,74 @@ ORDER BY MIN(ydate)
 /
 SPOOL OFF
 
+
+-- Now create CSV files to be used by my R-script to create a plot on splash page showing fx-DanBot performance.
+
+-- Get bearish CSV data:
+SPOOL /tmp/fx_sunday_s.txt
+
+COLUMN sum_g5n FORMAT 9999999.99
+COLUMN cum_sum FORMAT 9999999.99
+SET COLSEP ","
+
+SELECT
+wk
+,TO_CHAR(week_of,'YYYY-MM-DD') week_of
+,rownum                        rrownum
+,prediction_count
+,sum_g5n
+,SUM(sum_g5n)OVER(ORDER BY wk) cum_sum
+FROM
+(
+  SELECT
+  TO_CHAR(ydate,'YYYY-WW') wk
+  ,ROUND(MIN(ydate))       week_of
+  ,COUNT(g5n)              prediction_count
+  ,SUM(g5n)                sum_g5n
+  FROM fxpst12
+  WHERE rnng_crr1 > 0.1
+  AND score_diff < -0.55
+  AND g1n > -0.0004
+  GROUP BY TO_CHAR(ydate,'YYYY-WW')
+  ORDER BY TO_CHAR(ydate,'YYYY-WW')
+)
+/
+
+SPOOL OFF
+
+-- Get bullish CSV data:
+SPOOL /tmp/fx_sunday_l.txt
+
+COLUMN sum_g5n FORMAT 9999999.99
+COLUMN cum_sum FORMAT 9999999.99
+SET COLSEP ","
+
+SELECT
+wk
+,TO_CHAR(week_of,'YYYY-MM-DD') week_of
+,rownum                        rrownum
+,prediction_count
+,sum_g5n
+,SUM(sum_g5n)OVER(ORDER BY wk) cum_sum
+FROM
+(
+  SELECT
+  TO_CHAR(ydate,'YYYY-WW') wk
+  ,ROUND(MIN(ydate))       week_of
+  ,COUNT(g5n)              prediction_count
+  ,SUM(g5n)                sum_g5n
+  FROM fxpst12
+  WHERE rnng_crr1 > 0.1
+  AND score_diff > 0.55
+  AND g1n< 0.0004
+  GROUP BY TO_CHAR(ydate,'YYYY-WW')
+  ORDER BY TO_CHAR(ydate,'YYYY-WW')
+)
+/
+
+SPOOL OFF
+
+exit
 exit
 
 

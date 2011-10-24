@@ -8,7 +8,7 @@
 # I intend to run this script on each Sunday.
 
 # Define the .png file which will hold the output:
-png("/tmp/fx_sunday.png",width = 1200, height = 900)
+png("/tmp/fx_sunday.png",width = 900, height = 700)
 
 # Get the bearish data:
 fx_sunday_s = read.csv("/tmp/fx_sunday_s.csv")
@@ -58,6 +58,6 @@ lines(fx_sunday_l$WEEK_OF, fx_sunday_l$CUM_SUM
   ,col="green"
 )
 
-grid()
+grid(nx = 10, col = "blue")
 
 dev.off()

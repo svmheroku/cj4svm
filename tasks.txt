@@ -4,3 +4,8 @@ This url shows data from July:
   - http://bot4.us/a1_us_stk_new
 
 I need a plot of forex performance.
+  - done
+
+Make the splash-png plots smaller
+
+Enhance the grid lines so I have more and they are blue and maybe darker.

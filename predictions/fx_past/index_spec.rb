@@ -46,7 +46,7 @@ describe "cj4svm helps me build both erb files and haml files which act as Rails
     fx_past_sql = "/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"
     dglb = Dir.glob(fx_past_sql)
     dglb.should == ["/pt/s/rl/cj4svm/predictions/fx_past/fx_past.sql"]
-    File.size(fx_past_sql).should == 4977
+    File.size(fx_past_sql).should == 5026
     # The script should have an exit so it will not hang:
     `grep exit fx_past.sql`.should match /^exit\n/
     time0 = Time.now
